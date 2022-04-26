@@ -26,6 +26,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ExportZielanalyse.csv" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>

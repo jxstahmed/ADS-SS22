@@ -7,6 +7,7 @@
 #include "TreeNode.h"
 #include <iomanip>
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -213,7 +214,7 @@ vector<TreeNode*> Tree::get_vektor(string Name)	// Hier suchen wir einen Vektor 
 
 	vector<TreeNode*> suchen;
 
-	for (int i = 0; i < baum.size(); i++)
+	for (unsigned int i = 0; i < baum.size(); i++)
 	{
 
 		if (baum[i]->get_name() == Name)
@@ -228,8 +229,55 @@ vector<TreeNode*> Tree::get_vektor(string Name)	// Hier suchen wir einen Vektor 
 void Tree::levelOrder(void)
 {
 
-	vector<TreeNode*> ausgabe = baum;
+	TreeNode* wurzel = anker;
 
+	queue<TreeNode*> ausgabe;
+	queue<int> level;
+
+	if (wurzel == nullptr)
+	{
+		cout << "Der Baum ist leer." << endl;
+		return;
+	}
+
+	ausgabe.push(wurzel);
+	level.push(0);
+
+	int vorher = -1;
+	int aktuell;
+	while (!ausgabe.empty())
+	{
+		TreeNode* stand = ausgabe.front();
+		ausgabe.pop();
+		aktuell = level.front();
+		level.pop();
+
+		if (vorher != aktuell)
+		{
+			vorher = aktuell;
+		}
+
+		cout << std::setw(4) << stand->get_NodeChronologicalID() << "|"
+			<< setw(12) << stand->get_name() << "|"
+			<< setw(8) << stand->get_age() << "|"
+			<< setw(8) << stand->get_income() << "|"
+			<< setw(10) << stand->get_PostCode() << "|"
+			<< setw(9) << stand->get_NodeOrderID() << "|"
+			<< setw(5) << aktuell << endl;
+
+		if (stand->get_left() != nullptr)
+		{
+			ausgabe.push(stand->get_left());
+			level.push(aktuell + 1);
+		}
+		if (stand->get_right() != nullptr)
+		{
+			ausgabe.push(stand->get_right());
+			level.push(aktuell + 1);
+		}
+
+	}
+	return;
 	
 }
 

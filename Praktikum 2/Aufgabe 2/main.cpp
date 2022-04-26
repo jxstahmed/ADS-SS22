@@ -63,20 +63,19 @@ int main()
     ///////////////////////////////////////
     // Ihr Code hier:
     int eingabe = 0;
-
-    string Name = "";
-    int Alter = 0;
-    double Einkommen = 0;
-    int PLZ = 0;
+    string name = "";
+    int alter = 0;
+    double einkommen = 0;
+    int plz = 0;
     int OrderID = 0;
-    string Antwort = "";
 
-    Tree* neu = new Tree;
+    Tree* baum = new Tree;
     vector<TreeNode*> suchen;
 
-    while (eingabe != 8);
+    while (eingabe != 7)
     {
-        cout << "=========================================" << endl
+        cout << endl
+             << "=========================================" << endl
              << "ADS - ELK - Stack v1.9, by 25th Bam" << endl
              << "=========================================" << endl
              << "1) Datensatz einfuegen, manuell" << endl
@@ -89,61 +88,71 @@ int main()
 
         cout << "?>";
         cin >> eingabe;
+        cout << endl;
 
-        switch (eingabe) {
-
+        switch (eingabe)
+        {
         case 1:
-            cout << "Bitte geben Sie die den Datensatz ein" << endl <<
-                "Name ?";
-            cin >> Name;
-            cout << endl << "Alter ?";
-            cin >> Alter;
-            cout << endl << "Einkommen ?";
-            cin >> Einkommen;
-            cout << endl << "PLZ ?";
-            cin >> PLZ;
+            cout << "Bitte geben Sie die den Datensatz ein" << endl;
 
-            neu->addNode(Name, Alter, Einkommen, PLZ);
+            cout << "Name ?> ";
+            cin >> name;
+            cout << endl;
+
+            cout << "Alter ?> ";
+            cin >> alter;
+            cout << endl;
+
+            cout << "Einkommen ?> ";
+            cin >> einkommen;
+            cout << endl;
+
+            cout << "PLZ ?> ";
+            cin >> plz;
+            cout << endl;
+
+            baum->addNode(name, alter, einkommen, plz);
             break;
 
         case 2:
-            mainscreen_addTreeCSV(neu);
-
+            mainscreen_addTreeCSV(baum);
             break;
+
         case 3:
             cout << "+ Bitte geben Sie den zu loschenden Datensatz an" << endl;
-            cout << "OrderID ?";
+
+            cout << "OrderID ?> ";
             cin >> OrderID;
+            cout << endl;
 
-            neu->deleteNode(OrderID);
-
+            baum->deleteNode(OrderID);
             cout << "+ Datensatz wurde geloscht." << endl;
-
-
-
             break;
+
         case 4:
             cout << "+ Bitte geben Sie den zu suchenden Datensatz an" << endl;
-            cout << "Name ?" << endl;
-            cin >> Name;
 
-            if (neu->searchNode(Name)) {
-                suchen = neu->get_vektor(Name);
+            cout << "Name ?> ";
+            cin >> name;
+            cout << endl;
+
+            if (baum->searchNode(name)) {
+                suchen = baum->get_vektor(name);
 
                 cout << "+ Fundstellen:" << endl;
 
                 while (!suchen.empty()) {
                     auto it = suchen.begin();
-                    (*it)->print();         //TreeNode* wird zu TreeNode
+                    (*it)->print();
                     suchen.erase(suchen.begin());
                 }
-
             }
+            break;
         case 5:
             cout << "ID  | Name       | Age    | Income | PostCode | OrderID " << endl;
             cout << "----+------------+--------+--------+----------+---------" << endl;
 
-            neu->printAll();
+            baum->printAll();
 
             break;
 
@@ -151,7 +160,7 @@ int main()
             cout << "ID  | Name       | Age    | Income | PostCode | OrderID | Level" << endl;
             cout << "----+------------+--------+--------+----------+---------+------" << endl;
 
-            neu->levelOrder();
+            baum->levelOrder();
 
             break;
 
@@ -161,7 +170,7 @@ int main()
 
 
     }
-    //
+
     ///////////////////////////////////////
     system("PAUSE");
 
