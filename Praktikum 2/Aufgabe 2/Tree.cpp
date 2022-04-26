@@ -167,7 +167,7 @@ bool Tree::loesche(int NodeOrderID)
 bool Tree::searchNode(string Name)
 {
 
-	auto suche = get_vektor(Name);
+	auto suche = vektor(Name);
 
 	if(suche.size() == 0)
 	{
@@ -186,7 +186,6 @@ void Tree::printAll(void)
 
 	while (!ausgabe.empty())
 	{
-
 		auto aktuell = ausgabe.begin();
 		(*aktuell)->ausgabe();
 		ausgabe.erase(ausgabe.begin());
@@ -209,17 +208,15 @@ void Tree::setze_zeiger(TreeNode* y, int index)
 	baum[index] = y;
 }
 
-vector<TreeNode*> Tree::get_vektor(string Name)	// Hier suchen wir einen Vektor [einen Knoten] dessen Name, mit dem übergebenen Namen einstimmt.
+vector<TreeNode*> Tree::vektor(string Name)	// Hier suchen wir einen Vektor [einen Knoten] dessen Name, mit dem übergebenen Namen einstimmt.
 {
 
 	vector<TreeNode*> suchen;
 
 	for (unsigned int i = 0; i < baum.size(); i++)
 	{
-
 		if (baum[i]->get_name() == Name)
 		{
-
 			suchen.push_back(baum[i]);
 		}
 	}
@@ -278,8 +275,6 @@ void Tree::levelOrder(void)
 
 	}
 	return;
-	
 }
-
 //
 ////////////////////////////////////

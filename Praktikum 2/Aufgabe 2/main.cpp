@@ -137,7 +137,7 @@ int main()
             cout << endl;
 
             if (baum->searchNode(name)) {
-                suchen = baum->get_vektor(name);
+                suchen = baum->vektor(name);
 
                 cout << "+ Fundstellen:" << endl;
 
@@ -163,12 +163,7 @@ int main()
             baum->levelOrder();
 
             break;
-
-
         }
-
-
-
     }
 
     ///////////////////////////////////////

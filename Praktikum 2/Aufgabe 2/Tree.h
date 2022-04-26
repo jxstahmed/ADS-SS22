@@ -34,7 +34,7 @@ public:
     void setze_zeiger(TreeNode* x, int index);
     bool loesche(int NodeOrderID);
     TreeNode* loeschen_rekursive(int NodeOrderId, TreeNode* knoten);
-    vector<TreeNode*> get_vektor(string Name);
+    vector<TreeNode*> vektor(string Name);
     void levelOrder(void);
     //
     ////////////////////////////////////
