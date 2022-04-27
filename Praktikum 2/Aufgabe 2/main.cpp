@@ -93,25 +93,22 @@ int main()
         switch (eingabe)
         {
         case 1:
-            cout << "Bitte geben Sie die den Datensatz ein" << endl;
+            cout << "+ Bitte geben Sie die den Datensatz ein" << endl;
 
-            cout << "Name ?> ";
+            cout << " Name ?> ";
             cin >> name;
-            cout << endl;
 
-            cout << "Alter ?> ";
+            cout << " Alter ?> ";
             cin >> alter;
-            cout << endl;
 
-            cout << "Einkommen ?> ";
+            cout << " Einkommen ?> ";
             cin >> einkommen;
-            cout << endl;
 
-            cout << "PLZ ?> ";
+            cout << " PLZ ?> ";
             cin >> plz;
-            cout << endl;
 
             baum->addNode(name, alter, einkommen, plz);
+            cout << "+ Ihr Datensatz wurde eingefuegt" << endl;
             break;
 
         case 2:
@@ -119,22 +116,20 @@ int main()
             break;
 
         case 3:
-            cout << "+ Bitte geben Sie den zu loschenden Datensatz an" << endl;
+            cout << "+ Bitte geben Sie den zu loeschenden Datensatz an" << endl;
 
-            cout << "OrderID ?> ";
+            cout << " OrderID ?> ";
             cin >> OrderID;
-            cout << endl;
 
             baum->deleteNode(OrderID);
-            cout << "+ Datensatz wurde geloscht." << endl;
+            cout << "+ Eintrag wurde geloescht." << endl;
             break;
 
         case 4:
             cout << "+ Bitte geben Sie den zu suchenden Datensatz an" << endl;
 
-            cout << "Name ?> ";
+            cout << " Name ?> ";
             cin >> name;
-            cout << endl;
 
             if (baum->searchNode(name)) {
                 suchen = baum->vektor(name);

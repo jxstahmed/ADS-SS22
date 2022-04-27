@@ -21,7 +21,37 @@ Tree::Tree()
 
 Tree::~Tree()
 {
+	if (anker == nullptr)
+	{
+		return;
+	}
+	while (anker != nullptr)
+	{
+		TreeNode* loeschen = anker;
 
+		if (anker->get_left() == nullptr && anker->get_right() == nullptr)
+		{
+			break;
+		}
+
+		while (true)
+		{
+			if (loeschen->get_left() != nullptr)
+			{
+				loeschen = loeschen->get_left();
+			}
+			else if (loeschen->get_right() != nullptr)
+			{
+				loeschen = loeschen->get_right();
+			}
+			else if (loeschen->get_left() == nullptr && loeschen->get_right() == nullptr)
+			{
+				delete loeschen;
+				break;
+			}
+		}
+	}
+	delete anker;
 }
 
 void Tree::addNode(string Name, int Age, double Income, int  PostCode)
@@ -38,13 +68,13 @@ void Tree::addNode(string Name, int Age, double Income, int  PostCode)
 		anker = neu;
 	}
 	else {
-		if (anker->get_NodeOrderID() < neu->get_NodeOrderID()) // Wenn der neue größer ist als der Anker, dann nach rechts.
-		{
-			kind = eltern->get_right();
-		}
-		else	// Wenn der neue kleiner ist als der Anker, dann nach links.
+		if (anker->get_NodeOrderID() > neu->get_NodeOrderID()) // Wenn der neue kleiner ist als der Anker, dann nach links.
 		{
 			kind = eltern->get_left();
+		}
+		else	// Wenn der neue größer ist als der Anker, dann nach rechts.
+		{
+			kind = eltern->get_right();
 		}
 
 		while (kind != nullptr)	//Durch traversieren um den Knoten richtig einzusezten. Solange wir kein nullptr erreichen.
@@ -52,24 +82,24 @@ void Tree::addNode(string Name, int Age, double Income, int  PostCode)
 
 			eltern = kind;
 
-			if (kind->get_NodeOrderID() < neu->get_NodeOrderID())
+			if (kind->get_NodeOrderID() > neu->get_NodeOrderID())
 			{
 
-				kind = kind->get_right();
+				kind = kind->get_left();
 			}
 			else
 			{
-				kind = kind->get_left();
+				kind = kind->get_right();
 			}
 		}
 
-		if (eltern->get_NodeOrderID() < neu->get_NodeOrderID())
+		if (eltern->get_NodeOrderID() > neu->get_NodeOrderID())
 		{
-			eltern->set_right(neu);
+			eltern->set_left(neu);
 		}
 		else
 		{
-			eltern->set_left(neu);
+			eltern->set_right(neu);
 		}
 	}
 
@@ -79,71 +109,122 @@ void Tree::addNode(string Name, int Age, double Income, int  PostCode)
 
 bool Tree::deleteNode(int NodeOrderId)
 {
+	loesche(NodeOrderId);
+	
+	TreeNode* suchen = anker;
+	TreeNode* eltern = nullptr;
 
-	if (anker == nullptr) // Baum ist wiedermal Leer.
+	while (suchen != nullptr && suchen->get_NodeOrderID() != NodeOrderId)
+	{
+		eltern = suchen;
+		if (suchen->get_NodeOrderID() > NodeOrderId)
+		{
+			suchen = suchen->get_left();
+		}
+		else
+		{
+			suchen = suchen->get_right();
+		}
+	}
+
+	if (suchen == nullptr) // Der zu suchende Knoten wurde nicht gefunden.
 	{
 		return false;
 	}
-	else
+
+
+	if (suchen->get_left() == nullptr && suchen->get_right() == nullptr)	// Der Knoten hat keine Nachfolger. Kann einfach gelöscht werden.
 	{
-		loesche(NodeOrderId);
-		anker = loeschen_rekursive(NodeOrderId, anker);
+		if (eltern == nullptr)
+		{
+			anker = nullptr;
+		}
+		else
+		{
+			if (eltern->get_left() == suchen)
+			{
+				eltern->set_left(nullptr);
+			}
+			else
+			{
+				eltern->set_right(nullptr);
+			}
+		}
+		delete suchen;
+		currentNodeChronolicalID--;
+		return true;
 	}
 
-	currentNodeChronolicalID--;
-	return true;
+	else if (!(suchen->get_left() != nullptr && suchen->get_right() != nullptr))	// Knoten hat nur einen Nachfolger.
+	{
+		TreeNode* neu;
+
+		if (suchen->get_left() != nullptr)
+		{
+			neu = suchen->get_left();	// Zeiger auf Kindknoten von suchen
+		}
+		else
+		{
+			neu = suchen->get_right();	// Zeiger auf Kindknoten von suchen
+		}
+
+		if (eltern == nullptr)
+		{
+			anker = neu;	// Wenn Elternknoten von Suchen NULL, dann zeigt anker auf Kind knoten von Suchen
+		}
+		else
+		{
+			if (eltern->get_left() == suchen)
+			{
+				eltern->set_left(neu);	// Elternknoten von Suchen, bekommt Kindknoten von suchen.
+			}
+			else
+			{
+				eltern->set_right(neu);	// Elternknoten von Suchen, bekommt Kindknoten von suchen.
+			}
+		}
+		delete suchen;
+		currentNodeChronolicalID--;
+		return true;
+	}
+	else	//Knoten hat 2 Nachfolger
+	{
+		TreeNode* elternmin, *min;
+		elternmin = suchen;
+		min = suchen->get_right();
+
+		while (min->get_left() != nullptr)
+		{
+			elternmin = min;
+			min = min->get_left();
+		}
+		
+		min->set_left(suchen->get_left());
+		if (elternmin != suchen)
+		{
+			elternmin->set_left(min->get_right());
+			min->set_right(suchen->get_right());
+		}
+		if (eltern == nullptr)
+		{
+			anker = min;
+		}
+		else
+		{
+			if (eltern->get_left() == suchen)
+			{
+				eltern->set_left(min);
+			}
+			else
+			{
+				eltern->set_right(min);
+			}
+		}
+		delete suchen;
+		currentNodeChronolicalID--;
+		return true;
+	}
 }
-
-TreeNode* Tree::loeschen_rekursive(int NodeOrderID, TreeNode* anker)
-{
-	if (anker == nullptr)	//Baum ist Leer.
-	{
-		return anker;
-	}
-	else if (anker->get_NodeOrderID() < NodeOrderID)
-	{
-		anker->set_left(loeschen_rekursive(NodeOrderID, anker->get_right()));
-	}
-	else if (anker->get_NodeOrderID() > NodeOrderID)
-	{
-		anker->set_left(loeschen_rekursive(NodeOrderID, anker->get_left()));
-	}
-	else
-	{
-		if (anker->get_left() == nullptr)	// Hat nur einen rechten Nachfolger
-		{
-			TreeNode* neu;
-
-			neu = anker->get_right();
-			delete anker;
-
-			return neu;
-
-		}
-		else if (anker->get_right() == nullptr)	// Hat nur einen linken Nachfolger
-		{
-			TreeNode* neu;
-
-			neu = anker->get_left();
-			delete anker;
-
-			return neu;
-
-		}
-		else if (anker->get_right() != nullptr && anker->get_left() != nullptr)
-		{
-			TreeNode* neu;
-
-			neu = this->minimum(anker->get_right());
-
-			anker->set_NodeOrderID(neu->get_NodeOrderID());
-			anker->set_right(loeschen_rekursive(neu->get_NodeOrderID(), anker->get_right()));
-		}
-	}
-
-	return anker;
-}
-
 bool Tree::loesche(int NodeOrderID)
 {
 
@@ -202,11 +283,6 @@ TreeNode* Tree::minimum(TreeNode* min)
 	return min;
 }
 
-
-void Tree::setze_zeiger(TreeNode* y, int index)
-{
-	baum[index] = y;
-}
 
 vector<TreeNode*> Tree::vektor(string Name)	// Hier suchen wir einen Vektor [einen Knoten] dessen Name, mit dem übergebenen Namen einstimmt.
 {

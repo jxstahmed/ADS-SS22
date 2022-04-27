@@ -29,6 +29,7 @@ public:
     ///////////////////////////////////////
     // Ihr Code hier:
     TreeNode(int NodeOrderID, int NodeChronologicalID, std::string name, int Age, double Income, int PostCode);
+    TreeNode(TreeNode* copy);
 
     int get_NodeOrderID();
     void set_NodeOrderID(int no);

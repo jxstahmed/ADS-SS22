@@ -31,7 +31,6 @@ public:
     bool searchNode(string Name);
     void printAll(void);
     TreeNode* minimum(TreeNode* min);
-    void setze_zeiger(TreeNode* x, int index);
     bool loesche(int NodeOrderID);
     TreeNode* loeschen_rekursive(int NodeOrderId, TreeNode* knoten);
     vector<TreeNode*> vektor(string Name);

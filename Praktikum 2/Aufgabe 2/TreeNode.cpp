@@ -20,6 +20,16 @@ TreeNode::TreeNode(int NodeOrderID, int NodeChronologicalID, std::string Name, i
 	this->PostCode = PostCode;
 }
 
+TreeNode::TreeNode(TreeNode* copy)
+{
+	this->NodeOrderID = copy->NodeOrderID;
+	this->NodeChronologicalID = copy->NodeChronologicalID;
+	this->Name = copy->Name;
+	this->Age = copy->Age;
+	this->Income = copy->Income;
+	this->PostCode = copy->PostCode;
+}
+
 int TreeNode::get_NodeOrderID()
 {
 	return this->NodeOrderID;
@@ -112,13 +122,12 @@ void TreeNode::print()
 
 void TreeNode::ausgabe()
 {
-	cout << std::setw(10) << this->get_NodeChronologicalID()
-		 << setw(15) << this->get_name()
-		 << setw(15) << this->get_age()
-		 << setw(15) << this->get_income()
-		 << setw(15) << this->get_PostCode()
-		 << setw(15) << this->get_NodeOrderID() << endl;
-
+	cout << std::setw(4) << this->get_NodeChronologicalID() << "|"
+		<< setw(12) << this->get_name() << "|"
+		<< setw(8) << this->get_age() << "|"
+		<< setw(8) << this->get_income() << "|"
+		<< setw(10) << this->get_PostCode() << "|"
+		<< setw(9) << this->get_NodeOrderID() << "|" << endl;
 }
 //
 ////////////////////////////////////
