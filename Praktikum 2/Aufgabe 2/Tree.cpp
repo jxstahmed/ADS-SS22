@@ -309,7 +309,6 @@ void Tree::levelOrder(void)
 
 	if (wurzel == nullptr)
 	{
-		cout << "Der Baum ist leer." << endl;
 		return;
 	}
 
@@ -331,12 +330,12 @@ void Tree::levelOrder(void)
 		}
 
 		cout << std::setw(4) << stand->get_NodeChronologicalID() << "|"
-			<< setw(12) << stand->get_name() << "|"
+			<< setw(20) << stand->get_name() << "|"
 			<< setw(8) << stand->get_age() << "|"
 			<< setw(8) << stand->get_income() << "|"
 			<< setw(10) << stand->get_PostCode() << "|"
 			<< setw(9) << stand->get_NodeOrderID() << "|"
-			<< setw(5) << aktuell << endl;
+			<< setw(5) << aktuell << "|" << endl;
 
 		if (stand->get_left() != nullptr)
 		{

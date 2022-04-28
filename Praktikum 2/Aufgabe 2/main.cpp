@@ -144,16 +144,16 @@ int main()
             }
             break;
         case 5:
-            cout << "ID  | Name       | Age    | Income | PostCode | OrderID " << endl;
-            cout << "----+------------+--------+--------+----------+---------" << endl;
+            cout << "ID  | Name               | Age    | Income | PostCode | OrderID  " << endl;
+            cout << "----+--------------------+--------+--------+----------+----------" << endl;
 
             baum->printAll();
 
             break;
 
         case 6:
-            cout << "ID  | Name       | Age    | Income | PostCode | OrderID | Level" << endl;
-            cout << "----+------------+--------+--------+----------+---------+------" << endl;
+            cout << "ID  | Name               | Age    | Income | PostCode | OrderID | Level" << endl;
+            cout << "----+--------------------+--------+--------+----------+---------+------" << endl;
 
             baum->levelOrder();
 

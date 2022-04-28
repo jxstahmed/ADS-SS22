@@ -33,11 +33,11 @@ void Ring::addNode(std::string description, std::string symbolicData)
 		anker = neu;
 		delete loeschen;
 
-		RingNode* ptr = neu;
+		RingNode* ptr = neu->getNext();
 
-		for (int i = 0; i < countNodes; i++)
+		for (int i = 1; i < countNodes; i++)
 		{
-			ptr->setAge(i+1);
+			ptr->setAge(ptr->getAge()+1);
 			ptr = ptr->getNext();
 		}
 
@@ -51,9 +51,9 @@ void Ring::addNode(std::string description, std::string symbolicData)
 
 		RingNode* ptr = neu->getNext();
 
-		for (int i = countNodes - 1; 0 < i; i--)
+		for (int i = 1; i < countNodes; i++)
 		{
-			ptr->setAge(i);
+			ptr->setAge(ptr->getAge() + 1);
 			ptr = ptr->getNext();
 		}
 	}

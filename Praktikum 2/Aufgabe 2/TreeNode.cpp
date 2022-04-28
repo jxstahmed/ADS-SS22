@@ -123,7 +123,7 @@ void TreeNode::print()
 void TreeNode::ausgabe()
 {
 	cout << std::setw(4) << this->get_NodeChronologicalID() << "|"
-		<< setw(12) << this->get_name() << "|"
+		<< setw(20) << this->get_name() << "|"
 		<< setw(8) << this->get_age() << "|"
 		<< setw(8) << this->get_income() << "|"
 		<< setw(10) << this->get_PostCode() << "|"
