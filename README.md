@@ -1,4 +1,4 @@
-# GERMAN:
+# German:
 
 > Meine Lösungen zu den ADS Praktikan!
 
