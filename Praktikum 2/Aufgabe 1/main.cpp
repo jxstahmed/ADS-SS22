@@ -44,7 +44,7 @@ int main()
 			case 1:
 				cout << "+Neuen Datensatz anlegen" << endl;
 				cout << "Beschreibung ?> ";
-				cin >> beschreibung;
+				getline (cin>>ws, beschreibung);// cin >> beschreibung;
 				cout << "Daten ?> ";
 				cin >> daten;
 				cout << endl;

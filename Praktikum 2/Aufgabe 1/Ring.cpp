@@ -83,6 +83,12 @@ bool Ring::search(std::string symbolicData)
 
 void Ring::print()
 {
+	if (anker == nullptr)
+	{
+		std::cout << "Es existieren keine Backups" << std::endl;
+		return;
+	}
+	
 	RingNode* ptr = anker;
 
 	std::cout << "Alter: " << ptr->getAge() << ", Beschreibung: " << ptr->getDescription() << ", Daten: " << ptr->getData() << std::endl;
